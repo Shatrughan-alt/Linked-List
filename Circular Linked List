@@ -1,0 +1,192 @@
+import java.util.*;
+class Node
+{
+    int data;
+    Node next;
+    Node(int data)
+    {
+        this.data=data;
+    }
+}
+public class Main
+{
+    Node head;
+    //INSERT AT BEGINNING
+    public void cinsertAtBeg(int data)
+    {
+        Node n=new Node(data);
+        if(head==null)
+        {
+            head=n;
+            n.next = head;
+        }
+        else
+        {
+            Node temp=head;
+            n.next=head;
+            while(temp.next!=null)
+            {
+                temp=temp.next;
+            }
+            temp.next=n;
+            head=n;
+        }
+    }
+    //INSERT AT END(LAST)
+    public void cinsertAtEnd(int data)
+    {
+        Node n= new Node(data);
+        if(head==null)
+        {
+            head=n;
+            n.next=head;
+        }
+        else {
+            Node temp = head;
+            while (temp.next != head) {
+                temp = temp.next;
+            }
+            n.next = temp.next;
+            temp.next = n;
+        }
+    }
+    //METHOD TO COUNT THE NUMBER OF NODE
+    public int count(){
+        Node temp = head;
+        if(head==null)
+          return 0;
+        else{
+          int c=1;
+          while(temp.next!=head){
+            c++;
+            temp=temp.next;
+          }
+          return c;
+        }
+      }
+      //INSERT AT THE GIVEN POSITION WITH THE GIVEN DATA
+      public void cinsertAtPos(int pos, int data){
+        Node n = new Node(data);
+        if(head==null){
+          if(pos!=1)
+            System.out.println("Invalid Position");
+          else{
+            head=n;
+            n.next=head;
+          }
+        }
+        else{
+          if(pos==1){
+            Node temp = head;
+            n.next=head;
+            while(temp.next!=head){
+              temp=temp.next;
+            }
+            temp.next=n;
+            head=n;
+          }
+          else if(pos>count()+1){
+            System.out.println("Invalid Position");
+          }
+          else{
+            Node temp = head;
+            int c=1;
+            while(temp.next!=head){
+              if(pos-1==c)
+                break;
+              c++;
+              temp=temp.next;
+            }
+            n.next=temp.next;
+            temp.next=n;
+          }
+        }
+      }
+      //DELETE AT BEGINNING
+      public void cdeleteAtBeg(){
+    if(head==null)
+      return;
+    else{
+      Node temp = head;
+      while(temp.next!=head){
+        temp=temp.next;
+      }
+      temp.next=head.next;
+      head=head.next;
+    }
+  }
+  //DELETE AT END
+  public void cdeleteAtEnd(){
+    if(head==null){
+      return;
+    }
+    else{
+      if(head.next==head)
+        head=null;
+      else{
+        Node temp = head;
+        while(temp.next.next!=head){
+          temp=temp.next;
+        }
+        temp.next=head;
+      }
+    }
+  }
+  DELETE AT THE GIVEN POSITION
+  public void cdeleteAtPos(int pos){
+    if(head==null)
+      return;
+    else{
+      if(pos==1){
+        if(head.next==head){
+          head=null;
+        }
+        else{
+          Node temp = head;
+          while(temp.next!=head){
+            temp=temp.next;
+          }
+          temp.next=head.next;
+          head=head.next;
+        }
+      }
+      else if(pos>count()){
+        System.out.println("Invalid Position");
+      }
+      else{
+        Node temp = head;
+        int c=1;
+        while(temp.next!=head){
+          if(pos-1==c)
+            break;
+          c++;
+          temp=temp.next;
+        }
+        temp.next=temp.next.next;
+      }
+    }
+  }
+  //METHOD TO PRINT THE NODE
+  public void print(){
+        Node temp =head;
+        while(temp!=null){
+            System.out.println(temp.data);
+            temp=temp.next;
+        }
+    }
+    public static void main(String[] args) {
+	    Main obj = new Main();
+	    Scanner sc = new Scanner(System.in);
+	    int n= sc.nextInt();
+		for(int i=0;i<n;i++){
+		   int k= sc.nextInt();
+		   //obj.cinsertAtBeg(k);
+		   obj.cinsertAtEnd(k);
+		}
+		obj.cinsertAtPos(3,67);
+		obj.cdeleteAtBeg();
+		obj.cdeleteAtEnd();
+		obj.cdeleteAtPos(2);
+		obj.print();
+	}
+}
