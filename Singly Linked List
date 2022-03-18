@@ -1,17 +1,31 @@
 import java.util.*;
-class Node{
-   int data;
-   Node next;
-   Node(int data){
-       this.data=data;
-   }
+class Node
+{
+    int data;
+    Node next;
+    Node(int data)
+    {
+        this.data=data;
+
+    }
 }
 public class Main
 {
     Node head;
-    //INSERT AT BEGINNING
-    public void insertAtBeg(int  x){
-        Node n= new Node(x);
+    //METHOD TO PRINTTHE NODE
+    public void print()
+    {
+        Node temp= head;
+        while(temp!=null)
+        {
+            System.out.println(temp.data+" ");
+            temp=temp.next;
+        }
+    }
+    //METHOD TO INSERT THE NODE AT BEGINNING
+    public void insertAtBeg(int k)
+    {
+        Node n = new Node(k);
         if(head==null)
         head=n;
         else{
@@ -19,53 +33,62 @@ public class Main
             head=n;
         }
     }
-    //INSERT AT END
-    public void insertAtEnd(int x){
+    //METHOD TO INSERT THE NODE AT LAST(END)
+    public void insertAtEnd(int x)
+    {
         Node n= new Node(x);
-        if(head==null)
-        head=n;
-        else{
-            Node temp=head;
-            while(temp.next!=null){
-                temp=temp.next;
-            }
-            temp.next=n;
-            
-        }
-    }
-    //METHOD TO COUNT NUMBER OF NODE
-    public int count(){
-        int  c=0;
         Node temp=head;
-        while(temp!=null){
+        while(temp.next!=null)
+        {
+            temp=temp.next;
+        }
+        temp.next =n;
+    }
+    //METHOD TO COUNT THE NUMBER OF NODE
+    public int count()
+    {
+        int c=0;
+        Node temp=head;
+        while(temp!=null)
+        {
             c++;
             temp=temp.next;
         }
         return c;
     }
-    //INSERT AT GIVEN POSITION
-    public void insertAtPos(int pos, int data){
-        Node n= new Node(data);
-        if(head==null){
-            if(pos>1)
-            System.out.println("Invalid position");
-            else
-            head =n;
-        }
-        else{
-            if(pos>count()+1){
-                System.out.println("Invalid position");
+    //METHOD TO INSERT THE NODE AT THE GIVEN POSITION WITH THE GIVEN ELEMENT
+    public void insertAtPos(int pos, int x) {
+        Node n = new Node(x);
+        if (head == null) {
+            if (pos > 1) {
+                System.out.println("INVALID POSITION");
             }
-            else if(pos==1){
+            else
+            {
+                head=n;
+            }
+        }
+        else
+        {
+            if(pos==1)
+            {
                 n.next=head;
                 head=n;
             }
-            else{
-                Node temp = head;
+            else if(pos>count()+1)
+            {
+                System.out.println("INVALID POSITION");
+            }
+            else
+            {
+                Node temp=head;
                 int c=1;
-                while(temp.next!=null){
+                while(temp.next!=null)
+                {
                     if(c==pos-1)
-                    break;
+                    {
+                        break;
+                    }
                     c++;
                     temp=temp.next;
                 }
@@ -74,24 +97,15 @@ public class Main
             }
         }
     }
-    //METHOD TO PRINT LINKED LIST
-    public void print(){
-        Node temp =head;
-        while(temp!=null){
-            System.out.println(temp.data+" ");
-            temp=temp.next;
-        }
-    }
-    //DELETE AT BEGINNING
+    //METHOD TO DELETE A NODE AT BEGINNING
     public void deleteAtBeg(){
         if(head==null)
-        return;
+            return;
         else{
-            Node temp=head;
-            head=temp.next;
+            head = head.next;
         }
     }
-    //DELETE AT END
+    //METHOD TO DELETE A NODE AT LAST(END)
     public void deleteAtEnd(){
         if(head==null)
             return;
@@ -108,7 +122,7 @@ public class Main
             }
         }
     }
-    //DELETE AT GIVEN POSITIION
+    //METHOD TO DELETE A NODE AT THE GIVEN POSITION
     public void deleteAtPos(int pos){
         if(head==null)
             return;
@@ -138,19 +152,22 @@ public class Main
             }
         }
     }
-	public static void main(String[] args) {
-	    Main obj = new Main();
-	    Scanner sc = new Scanner(System.in);
-	    int n= sc.nextInt();
-		for(int i=0;i<n;i++){
-		   int k= sc.nextInt();
-       //obj,insertAtBeg(k);
-		   obj.insertAtEnd(k);
-		}
-		//obj.insertAtPos(3,67);
-    //obj.deleteAtBeg();
-    //obj.deleteAtEnd();
-		obj.deleteAtPos(2);
-		obj.print();
-	}
+    public static void main(String args[])
+    {
+        Main obj =new Main();
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        for(int i=0;i<n;i++){
+            int m=sc.nextInt();
+            obj.insertAtBeg(m);
+        }
+        System.out.println("Element which you want to insert at last");
+        int s =sc.nextInt();
+        obj.insertAtEnd(s);
+        obj.insertAtPos(2,50);
+        obj.deleteAtBeg();
+        obj.deleteAtEnd();
+        obj.deleteAtPos(3);
+        obj.print();
+    }
 }
