@@ -1,34 +1,165 @@
-class Node{
-   Node prev;
-   int data;
-   Node next;
+// doubly
+import java.util.*;
+
+class Node {
+    int data;
+    Node prev;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+    }
 }
+
 public class Main {
-   Node head;
-   public void dinsertAtBeg(int data){
-      Node n = new Node();
-      n.data=data;
-      if(head==null)
-         head=n;
-      else{
-         n.next=head;
-         head.prev=n;
-         head=n;
-      }
-   }
-   public void ddeleteAtBeg(){
-      if(head==null)
-         return;
-      else{
-         head=head.next;
-         head.prev=null;
-      }
-   }
-   public static void main(String[] args){
-      Main obj = new Main();
-      obj.dinsertAtBeg(30);
-      obj.dinsertAtBeg(20);
-      obj.dinsertAtBeg(10);
-      obj.ddeleteAtBeg();
-   }
+    Node head;
+    Node tail;
+
+    public void print() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
+    }
+
+    public void insertAtBeg(int k) {
+        Node n = new Node(k);
+        if (head == null) {
+            head = n;
+        } else {
+            head.prev = n;
+            n.next = head;
+            head = n;
+        }
+    }
+
+    public void insertAtLast(int k) {
+        Node n = new Node(k);
+        if (head == null) {
+            head = n;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = n;
+            n.prev = temp;
+        }
+    }
+
+    public int count() {
+        Node temp = head;
+        int c = 0;
+        while (temp != null) {
+            c++;
+            temp = temp.next;
+        }
+        return c;
+    }
+
+    public void insertAtpos(int pos, int k) {
+        Node n = new Node(k);
+        if (head == null) {
+            if (pos == 1)
+                head = n;
+            else
+                System.out.println("Cant' inserted");
+        } else {
+            if (pos == 1) {
+                insertAtBeg(k);
+            } else if (pos > count() + 1) {
+                System.out.println("Can't Inserted");
+            } else {
+                Node temp = head;
+                int c = 1;
+                while (temp.next != null) {
+                    c++;
+                    if (c == pos)
+                        break;
+                    temp = temp.next;
+                }
+                n.next = temp.next;
+                n.prev = temp;
+                temp.next.prev = n;
+                // to check
+                // System.out.println(temp.next.prev.data);
+                temp.next = n;
+            }
+        }
+    }
+    public void deleteAtBeg(){
+        if(head==null)
+        return;
+        else{
+            head=head.next;
+            head.next.prev=null;
+        }
+    }
+    public void deleteAtLast(){
+        if(head==null)
+        return;
+        else{
+            Node temp=head;
+            while(temp.next.next!=null){
+                temp=temp.next;
+            }
+            temp.next=null;
+        }
+    }
+
+public void deleteAtPos(int pos){
+    if(head==null)
+    return;
+    else{
+        if(pos==1){
+            head=head.next;
+            head.next.prev=null;
+        }
+        else{
+            Node temp=head;
+            int c=1;
+            while(temp.next!=null){
+                c++;
+                if(c==pos){
+                    break;
+                }
+            }
+            temp.next=temp.next.next;
+            temp.next.next.prev=temp.next.prev;
+        }
+    }
+}
+    public static void main(String[] args) {
+        Main obj = new Main();
+        // Node a=new Node(1);
+        // Node b=new Node(2);
+        // Node c=new Node(3);
+        // Node d=new Node(4);
+        // a.next=b;
+        // b.prev=a;
+        // b.next=c;
+        // c.prev=b;
+        // c.next=d;
+        // d.prev=c;
+        // obj.head=a;
+        // obj.tail=d;
+        // obj.print();
+
+        // with user input
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int k = sc.nextInt();
+            // obj.insertAtBeg(k);
+            obj.insertAtLast(k);
+        }
+        // System.out.print(obj.count());
+        obj.insertAtpos(2, 5);
+        // obj.deleteAtBeg();
+        // obj.deleteAtLast();
+        obj.deleteAtPos(2);
+        obj.print();
+
+    }
 }
